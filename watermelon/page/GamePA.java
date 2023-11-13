@@ -66,6 +66,16 @@ public class GamePA extends PApplet {
 
             // Display and update the sphere that follows the mouse pointer
             followingSphere.display();
+
+            // Display the sizes of the next spheres on the top right corner
+            fill(0);
+            textSize(16);
+            textAlign(RIGHT, TOP);
+            int index = 0;
+            for (SphereStep step : nextSizes) {
+                text("Next Size " + (index + 1) + ": " + step, width - 10, index * 20 + 10);
+                index++;
+            }
         }
     }
 
