@@ -77,7 +77,7 @@ public class Sphere {
             other.isMerged = true;
 
             // Print the merged sizes to the console
-            System.out.println("Merged Sizes: " + diameter);
+            System.out.println("Merged Sizes: " + step);
 
         } else {
             // Adjust positions to avoid overlap (simplest method)
