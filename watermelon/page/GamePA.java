@@ -64,12 +64,6 @@ public class GamePA extends PApplet {
             rect(0, 0, wallThickness, height);  // Left wall
             rect(width - wallThickness, 0, wallThickness, height);  // Right wall
 
-            // Display the current size at the top of the screen
-            fill(0);
-            textSize(16);
-            textAlign(CENTER, TOP);
-            text("Current Size: " + followingSphere.diameter, width / 2, 10);
-
             // Display and update the sphere that follows the mouse pointer
             followingSphere.display();
         }
@@ -99,6 +93,16 @@ public class GamePA extends PApplet {
 
             // Add a new size to the queue
             nextSizes.add(SphereStep.values()[(int) (Math.random() * 3)]);
+            printQueueContents();
         }
+    }
+
+    // Additional method: Print the contents of the queue to the console
+    private void printQueueContents() {
+        System.out.print("Queue Contents: ");
+        for (SphereStep step : nextSizes) {
+            System.out.print(step + " ");
+        }
+        System.out.println();
     }
 }

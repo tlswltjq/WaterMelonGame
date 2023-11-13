@@ -65,9 +65,6 @@ public class Sphere {
     }
 
 
-    // Merge with another sphere if possible
-    // Merge with another sphere if possible
-    // Merge with another sphere if possible
     void mergeIfPossible(Sphere other) {
         if (diameter == other.diameter && !other.isMerged && step == other.step) {
             // Merge the spheres
@@ -78,7 +75,6 @@ public class Sphere {
 
             // Print the merged sizes to the console
             System.out.println("Merged Sizes: " + step);
-
         } else {
             // Adjust positions to avoid overlap (simplest method)
             float angle = pApplet.atan2(y - other.y, x - other.x);
