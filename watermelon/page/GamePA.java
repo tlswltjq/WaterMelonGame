@@ -3,6 +3,7 @@ package watermelon.page;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -113,9 +114,14 @@ public class GamePA extends PApplet {
 
     // Additional method: Print the contents of the queue to the console
     private void printQueueContents() {
-        System.out.print("Queue Contents: ");
-        for (SphereStep step : nextSizes) {
-            System.out.print(step + " ");
+        System.out.print("Selected Queue Contents: ");
+        int index = 0;
+        for (Iterator<SphereStep> iterator = nextSizes.iterator(); iterator.hasNext(); ) {
+            SphereStep step = iterator.next();
+            if (index >= 1 && index <= 3) {
+                System.out.print(step + " ");
+            }
+            index++;
         }
         System.out.println();
     }
