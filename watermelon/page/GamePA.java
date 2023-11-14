@@ -2,6 +2,7 @@ package watermelon.page;
 
 import processing.core.PApplet;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -81,7 +82,8 @@ public class GamePA extends PApplet {
                 nextSize = SphereStep.STEP_1;
             }
 
-            followingSphere.diameter = nextSize.getSize();
+            // Update the size of the followingSphere to the first size in the queue
+            followingSphere.diameter = nextSizes.peek().getSize();
 
             Sphere newSphere = new Sphere(this, mouseX, wallThickness, nextSize);
             newSphere.checkCollision(spheres);
@@ -92,10 +94,15 @@ public class GamePA extends PApplet {
         }
     }
 
+
     private void printQueueContents() {
-        System.out.print("Queue Contents: ");
-        for (SphereStep step : nextSizes) {
-            System.out.print(step + " ");
+        int index = 0;
+        for (Iterator<SphereStep> iterator = nextSizes.iterator(); iterator.hasNext(); ) {
+            SphereStep step = iterator.next();
+            if (index >= 1 && index <= 3) {
+                System.out.print(step + " ");
+            }
+            index++;
         }
         System.out.println();
     }
