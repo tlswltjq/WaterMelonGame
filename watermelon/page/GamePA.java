@@ -71,12 +71,7 @@ public class GamePA extends PApplet {
             rect(0, height - wallThickness, width, wallThickness);  // Bottom wall
             rect(0, 0, wallThickness, height);  // Left wall
             rect(width - wallThickness, 0, wallThickness, height);  // Right wall
-
-            // Display the current size and step at the top of the screen
-            fill(0);
-            textSize(16);
-            textAlign(CENTER, TOP);
-            text("Current Size: " + followingSphere.diameter + " Step: " + followingSphere.step, width / 2, 10);
+            
 
             // Display and update the sphere that follows the mouse pointer
             followingSphere.display();
