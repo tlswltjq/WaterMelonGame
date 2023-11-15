@@ -1,4 +1,4 @@
-package watermelon.page;
+package watermelon;
 public enum SphereStep {
     STEP_1(30, 1),
     STEP_2(41, 2),

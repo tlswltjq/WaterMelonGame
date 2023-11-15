@@ -1,4 +1,4 @@
-package watermelon.page;
+package watermelon;
 
 import processing.core.PApplet;
 

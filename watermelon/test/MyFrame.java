@@ -1,4 +1,4 @@
-package watermelon.page.test;
+package watermelon.test;
 
 import javax.swing.*;
 

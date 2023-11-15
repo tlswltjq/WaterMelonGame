@@ -1,4 +1,4 @@
-package watermelon.page.test;
+package watermelon.test;
 
 import processing.awt.PSurfaceAWT;
 import processing.core.PApplet;

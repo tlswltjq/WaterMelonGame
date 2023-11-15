@@ -1,4 +1,4 @@
-package watermelon.page;
+package watermelon;
 
 import processing.core.PApplet;
 
@@ -8,11 +8,10 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class GamePA extends PApplet {
-
     ArrayList<Sphere> spheres;  // ArrayList to store spheres
-    static int wallThickness = 20;  // Thickness of the walls
     Queue<SphereStep> nextSizes;  // Queue to store next sizes
     Sphere followingSphere;  // Sphere that follows the mouse pointer
+    static int wallThickness = 20;  // Thickness of the walls
     boolean gameStarted = false;  // Flag to check if the game has started
 
     public void settings() {
@@ -71,7 +70,7 @@ public class GamePA extends PApplet {
             rect(0, height - wallThickness, width, wallThickness);  // Bottom wall
             rect(0, 0, wallThickness, height);  // Left wall
             rect(width - wallThickness, 0, wallThickness, height);  // Right wall
-            
+
 
             // Display and update the sphere that follows the mouse pointer
             followingSphere.display();
@@ -107,7 +106,6 @@ public class GamePA extends PApplet {
         }
     }
 
-    // Additional method: Print the contents of the queue to the console
     private void printQueueContents() {
         System.out.print("Selected Queue Contents: ");
         int index = 0;
