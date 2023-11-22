@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class Sphere {
     PApplet pApplet;
+    GamePA gamePA;
     float x, y;
     float diameter;
     int step;
@@ -14,7 +15,7 @@ public class Sphere {
     int outlineThickness;  // Outline thickness
     int owner;  // Player ownership
 
-    Sphere(PApplet pApplet, float x, float y, SphereStep step, int outlineColor, int outlineThickness, int owner) {
+    Sphere(PApplet pApplet, GamePA gamePA, float x, float y, SphereStep step, int outlineColor, int outlineThickness, int owner) {
         this.pApplet = pApplet;
         this.x = x;
         this.y = y;
@@ -23,6 +24,7 @@ public class Sphere {
         this.outlineColor = outlineColor;
         this.outlineThickness = outlineThickness;
         this.owner = owner;
+        this.gamePA = gamePA;
     }
 
     void display() {
@@ -58,13 +60,13 @@ public class Sphere {
                 float minDist = diameter / 2 + other.diameter / 2;
 
                 if (distance < minDist) {
-                    mergeIfPossible(other);
+                    mergeIfPossible(other, gamePA);
                 }
             }
         }
     }
 
-    void mergeIfPossible(Sphere other) {
+    void mergeIfPossible(Sphere other, GamePA pApplet) {
         if (diameter == other.diameter && !other.isMerged && step == other.step) {
             step = PApplet.max(step, other.step) + 1;
             diameter = SphereStep.values()[step - 1].getSize();
@@ -75,6 +77,7 @@ public class Sphere {
             owner = (owner == 1) ? 2 : 1;
 
             System.out.println("Merged Sizes: " + step + " | Owner: " + owner);
+            pApplet.turnTimer = 300;
         } else if (diameter == other.diameter && !other.isMerged && step == other.step && owner == other.owner) {
             // If owner is the same, merge as well
             step = PApplet.max(step, other.step) + 1;
@@ -83,6 +86,7 @@ public class Sphere {
             other.isMerged = true;
 
             System.out.println("Merged Sizes: " + step + " | Owner: " + owner);
+            pApplet.turnTimer = 300;
         } else {
             float angle = pApplet.atan2(y - other.y, x - other.x);
             x = other.x + pApplet.cos(angle) * (diameter / 2 + other.diameter / 2);

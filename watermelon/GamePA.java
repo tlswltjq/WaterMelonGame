@@ -93,7 +93,7 @@ public class GamePA extends PApplet {
             nextSizes.add(SphereStep.values()[(int) (Math.random() * 3)]);
         }
 
-        followingSphere = new Sphere(this, width / 2f, wallThickness, SphereStep.STEP_1, color(0, 0, 255), 2, currentPlayer);
+        followingSphere = new Sphere(this,this,  width / 2f, wallThickness, SphereStep.STEP_1, color(0, 0, 255), 2, currentPlayer);
     }
 
     private void updateFollowingSphere() {
@@ -148,7 +148,7 @@ public class GamePA extends PApplet {
     }
 
     private void createNewSphere(SphereStep nextSize, int outlineColor) {
-        Sphere newSphere = new Sphere(this, mouseX, wallThickness, nextSize, outlineColor, 2, currentPlayer);
+        Sphere newSphere = new Sphere(this,this,  mouseX, wallThickness, nextSize, outlineColor, 2, currentPlayer);
         newSphere.checkCollision(spheres);
         spheres.add(newSphere);
     }
