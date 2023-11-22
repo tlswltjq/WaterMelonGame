@@ -1,7 +1,5 @@
 package watermelon;
 
-import java.util.ArrayList;
-
 public class Player {
     int score =0;
 
