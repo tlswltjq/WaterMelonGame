@@ -58,7 +58,6 @@ public class Sphere {
             if (other != this) {
                 float distance = pApplet.dist(x, y, other.x, other.y);
                 float minDist = diameter / 2 + other.diameter / 2;
-
                 if (distance < minDist) {
                     mergeIfPossible(other, gamePA);
                 }
@@ -76,7 +75,7 @@ public class Sphere {
             // Update ownership of the merged sphere
             owner = (owner == 1) ? 2 : 1;
 
-            System.out.println("Merged Sizes: " + step + " | Owner: " + owner);
+            System.out.println("Merged Sizes: " + step + " | score for: " + pApplet.currentPlayer);
 
             // Reset the timer to 300 when a merge occurs
             pApplet.timer = 300;

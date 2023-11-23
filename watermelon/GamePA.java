@@ -15,7 +15,7 @@ public class GamePA extends PApplet {
 
     int player1Score = 0;
     int player2Score = 0;
-    int[] scores = {player1Score, player2Score};
+
 
     boolean canClick = true;
     int timer = 0;
@@ -46,13 +46,23 @@ public class GamePA extends PApplet {
             // Display the timer at the top-right corner
             fill(0);
             textSize(20);
-            textAlign(RIGHT, TOP);
-            text("Timer: " + timer, width - 20, 20);
+            textAlign(LEFT, TOP);
+            text("Player 1 Score: " + player1Score, 20, 20);
 
+            textAlign(RIGHT, TOP);
+            text("Player 2 Score: " + player2Score, width - 20, 20);
+
+            // Draw currentPlayer above the timer
             fill(0, 0, 0, 178); // Black with 70% transparency
-            textSize(40); // Adjust the size as needed
-            textAlign(CENTER, CENTER);
-            text(currentPlayer, width / 2, height / 2);
+            textSize(40);
+            textAlign(CENTER, BOTTOM);
+            text("Player: " + currentPlayer, width / 2, 100);
+
+            // Draw the timer at the top-right corner
+            fill(0);
+            textSize(20);
+            textAlign(CENTER, TOP);
+            text("Timer: " + timer, width / 2, 140);
 
             // Decrement the timer
             if (timer > 0) {
