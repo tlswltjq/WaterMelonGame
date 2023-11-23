@@ -4,7 +4,7 @@ import processing.core.PApplet;
 
 public class Launcher {
     public static void main(String[] args) {
-//        PApplet.main("watermelon.MainPA");
-        PApplet.main("watermelon.GamePA");
+        PApplet.main("watermelon.MainPA");
+//        PApplet.main("watermelon.GamePA");
     }
 }

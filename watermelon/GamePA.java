@@ -7,7 +7,7 @@ import java.util.Queue;
 
 public class GamePA extends PApplet {
     ArrayList<Sphere> spheres;
-    ArrayList<Pin> pins; // 추가: Pin 객체를 저장할 리스트
+    ArrayList<Pin> pins;
     Queue<SphereStep> nextSizes;
     Sphere followingSphere;
     static int wallThickness = 20;
@@ -17,8 +17,12 @@ public class GamePA extends PApplet {
     int player2Score = 0;
     boolean canClick = true;
     int timer = 0;
-    float deadline = 660;
+    float deadline = 160;
     boolean itemUse = false;
+    int callCount1 = 0;
+    int callCount2 = 0;
+    int pinCostPlayer1 = 1;
+    int pinCostPlayer2 = 1;
 
     public void settings() {
         pixelDensity(1);
@@ -78,7 +82,17 @@ public class GamePA extends PApplet {
     public void keyPressed() {
         if (timer == 0 && key == 'q') {
             itemUse = true;
-            createNewPin(mouseX, mouseY);
+            if (currentPlayer == 1 && Math.pow(2, callCount1) <= player1Score) {
+                createNewPin(mouseX, mouseY);
+                player1Score -= Math.pow(2, callCount1);
+                callCount1++;
+                pinCostPlayer1 *= 2;
+            } else if (currentPlayer == 2 && Math.pow(2, callCount2) <= player2Score) {
+                createNewPin(mouseX, mouseY);
+                player2Score -= Math.pow(2, callCount2);
+                callCount2++;
+                pinCostPlayer2 *= 2;
+            }
             itemUse = false;
         }
     }
@@ -88,8 +102,11 @@ public class GamePA extends PApplet {
             startGame();
         } else if (canClick && timer == 0) {
             if (hasHitDeadline()) {
-                System.out.println("Game over!");
-                System.out.println("player" + currentPlayer + " win");
+                int[] sc = sumScoresByOwner();
+                this.noLoop();
+                this.surface.setVisible(false);
+
+                PApplet.runSketch(new String[]{""}, new ResultPA(sc[0], sc[1]));
             } else {
                 handlePlayerTurn();
             }
@@ -118,7 +135,7 @@ public class GamePA extends PApplet {
 
     private void initializeGame() {
         spheres = new ArrayList<>();
-        pins = new ArrayList<>(); // 추가: Pin 객체를 저장할 리스트 초기화
+        pins = new ArrayList<>();
         nextSizes = new LinkedList<>();
 
         for (int i = 0; i < 10; i++) {
@@ -156,7 +173,7 @@ public class GamePA extends PApplet {
             }
         }
 
-        for (Pin pin : pins) { // 추가: Pin 객체 업데이트 및 화면에 표시
+        for (Pin pin : pins) {
             pin.display();
         }
     }
@@ -209,4 +226,24 @@ public class GamePA extends PApplet {
         }
         return hit;
     }
+    private int[] sumScoresByOwner() {
+        int player1TotalScore = 0;
+        int player2TotalScore = 0;
+
+        for (Sphere s : spheres) {
+            if (s.owner == 1) {
+                player1TotalScore += s.step * 2;
+            } else if (s.owner == 2) {
+                player2TotalScore += s.step * 2;
+            }
+        }
+
+//        println("Player 1 Total Score: " + player1TotalScore);
+//        println("Player 2 Total Score: " + player2TotalScore);
+
+        // 총 점수를 배열에 담아 반환
+        int[] totalScores = {player1TotalScore, player2TotalScore};
+        return totalScores;
+    }
+
 }

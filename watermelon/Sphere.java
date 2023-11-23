@@ -87,8 +87,6 @@ public class Sphere {
             // Update ownership of the merged sphere
             owner = (owner == 1) ? 2 : 1;
 
-            System.out.println("Merged Sizes: " + step + " | score for: " + pApplet.currentPlayer);
-
             // Reset the timer to 300 when a merge occurs
             pApplet.timer = 300;
         } else if (diameter == other.diameter && !other.isMerged && step == other.step && owner == other.owner) {
@@ -97,8 +95,6 @@ public class Sphere {
             diameter = SphereStep.values()[step - 1].getSize();
 
             other.isMerged = true;
-
-            System.out.println("Merged Sizes: " + step + " | Owner: " + owner);
 
             // Reset the timer to 300 when a merge occurs
             pApplet.timer = 300;

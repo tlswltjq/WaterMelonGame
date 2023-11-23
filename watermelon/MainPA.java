@@ -21,7 +21,7 @@ public class MainPA extends PApplet {
 
         fill(0);
         textSize(24);
-        text("Temp", width / 2, height / 6);
+        text("WATERMELON", width / 2, height / 6);
 
         drawRoundedRectangle(width / 2 - 150, height / 3 * 2, "Game Start");
         drawRoundedRectangle(width / 2 + 150, height / 3 * 2, "Exit");
