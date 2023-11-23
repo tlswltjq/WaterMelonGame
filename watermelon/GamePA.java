@@ -12,9 +12,13 @@ public class GamePA extends PApplet {
     static int wallThickness = 20;
     boolean gameStarted = false;
     int currentPlayer = 1; // Player 1 starts
+
     int player1Score = 0;
     int player2Score = 0;
+    int[] scores = {player1Score, player2Score};
+
     boolean canClick = true;
+    int timer = 0;
 
     public void settings() {
         pixelDensity(1);
@@ -39,18 +43,27 @@ public class GamePA extends PApplet {
             drawBoundaries();
             displayFollowingSphere();
 
-            // Display the turn timer at the top-right corner
+            // Display the timer at the top-right corner
             fill(0);
             textSize(20);
             textAlign(RIGHT, TOP);
-            text("Current Player: " + currentPlayer, width - 20, 20);
+            text("Timer: " + timer, width - 20, 20);
+
+            // Decrement the timer
+            if (timer > 0) {
+                timer--;
+                if (timer == 0) {
+                    canClick = true;
+                    switchTurn();
+                }
+            }
         }
     }
 
     public void mousePressed() {
         if (!gameStarted) {
             startGame();
-        } else {
+        } else if (canClick && timer == 0) {
             handlePlayerTurn();
         }
     }
@@ -69,9 +82,9 @@ public class GamePA extends PApplet {
         int outlineColor = (currentPlayer == 1) ? color(0, 0, 255) : color(0, 255, 0);
 
         createNewSphere(nextSize, outlineColor);
-
-        // Switch currentPlayer
-        currentPlayer = (currentPlayer == 1) ? 2 : 1;
+        // Prevent user from clicking and start the timer
+        canClick = false;
+        timer = 180; // 3 seconds
     }
 
     private void initializeGame() {
@@ -138,7 +151,8 @@ public class GamePA extends PApplet {
         spheres.add(newSphere);
     }
 
-    private void setClickPermission(boolean canClick) {
-        this.canClick = canClick;
+    private void switchTurn() {
+//        canClick = true;
+    currentPlayer = (currentPlayer == 1) ? 2 : 1;
     }
 }
