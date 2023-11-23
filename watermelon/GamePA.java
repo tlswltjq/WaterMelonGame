@@ -12,13 +12,11 @@ public class GamePA extends PApplet {
     static int wallThickness = 20;
     boolean gameStarted = false;
     int currentPlayer = 1; // Player 1 starts
-
     int player1Score = 0;
     int player2Score = 0;
-
-
     boolean canClick = true;
     int timer = 0;
+    float deadline = 160;
 
     public void settings() {
         pixelDensity(1);
@@ -42,6 +40,11 @@ public class GamePA extends PApplet {
             updateAndDisplaySpheres();
             drawBoundaries();
             displayFollowingSphere();
+
+            // Draw the translucent line at the deadline
+            stroke(0, 0, 0, 100); // Black with 40% transparency
+            strokeWeight(2);
+            line(0, deadline, width, deadline);
 
             // Display the timer at the top-right corner
             fill(0);
