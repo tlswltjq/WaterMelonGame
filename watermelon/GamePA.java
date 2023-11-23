@@ -78,11 +78,7 @@ public class GamePA extends PApplet {
             }
         }
     }
-    public void keyPressed() {
-        if (key == 'q' || key == 'Q') {
-//            item.createWall();
-        }
-    }
+
     public void mousePressed() {
         if (!gameStarted) {
             startGame();
