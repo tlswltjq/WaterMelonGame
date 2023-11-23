@@ -49,6 +49,11 @@ public class GamePA extends PApplet {
             textAlign(RIGHT, TOP);
             text("Timer: " + timer, width - 20, 20);
 
+            fill(0, 0, 0, 178); // Black with 70% transparency
+            textSize(40); // Adjust the size as needed
+            textAlign(CENTER, CENTER);
+            text(currentPlayer, width / 2, height / 2);
+
             // Decrement the timer
             if (timer > 0) {
                 timer--;
