@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class GamePA extends PApplet {
-    ArrayList<Sphere> spheres;
+    static ArrayList<Sphere> spheres;
     Queue<SphereStep> nextSizes;
     Sphere followingSphere;
     static int wallThickness = 20;
@@ -16,7 +16,7 @@ public class GamePA extends PApplet {
     int player2Score = 0;
     boolean canClick = true;
     int timer = 0;
-    float deadline = 160;
+    float deadline = 660;
 
     public void settings() {
         pixelDensity(1);
@@ -71,7 +71,7 @@ public class GamePA extends PApplet {
             if (timer > 0) {
                 timer--;
                 if (timer == 0) {
-                    canClick = true;
+                    canClick = true; // 다시 클릭 가능하도록 설정
                     switchTurn();
                 }
             }
@@ -82,7 +82,12 @@ public class GamePA extends PApplet {
         if (!gameStarted) {
             startGame();
         } else if (canClick && timer == 0) {
-            handlePlayerTurn();
+            if(hasHitDeadline()){
+                System.out.println("Game over!");
+                System.out.println("player"+ currentPlayer +" win");
+            }else{
+                handlePlayerTurn();
+            }
         }
     }
 
@@ -135,9 +140,9 @@ public class GamePA extends PApplet {
             s.checkCollision(spheres);
             s.checkBoundary();
             if (s.isMerged) {
-                if(currentPlayer == 1) {
+                if (currentPlayer == 1) {
                     player1Score += s.step * 2;
-                }else{
+                } else {
                     player2Score += s.step * 2;
                 }
                 spheres.remove(i);
@@ -175,7 +180,16 @@ public class GamePA extends PApplet {
     }
 
     private void switchTurn() {
-//        canClick = true;
-    currentPlayer = (currentPlayer == 1) ? 2 : 1;
+        currentPlayer = (currentPlayer == 1) ? 2 : 1;
+    }
+    private boolean hasHitDeadline() {
+        boolean hit = false;
+        for (Sphere s : spheres){
+            if (s.y - s.diameter/2 <deadline){
+                hit = true;
+                break;
+            }
+        }
+        return hit;
     }
 }
