@@ -18,6 +18,7 @@ public class GamePA extends PApplet {
     int timer = 0;
     float deadline = 660;
 
+//    Item item = new Item(this);
     public void settings() {
         pixelDensity(1);
         size(600, 750);
@@ -77,7 +78,11 @@ public class GamePA extends PApplet {
             }
         }
     }
-
+    public void keyPressed() {
+        if (key == 'q' || key == 'Q') {
+//            item.createWall();
+        }
+    }
     public void mousePressed() {
         if (!gameStarted) {
             startGame();
