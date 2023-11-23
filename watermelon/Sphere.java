@@ -53,7 +53,7 @@ public class Sphere {
         }
     }
 
-    void checkCollision(ArrayList<Sphere> others) {
+    void checkCollision(ArrayList<Sphere> others, ArrayList<Pin> pins) {
         for (Sphere other : others) {
             if (other != this) {
                 float distance = pApplet.dist(x, y, other.x, other.y);
@@ -63,7 +63,19 @@ public class Sphere {
                 }
             }
         }
+        for (Pin pin : pins) {
+            float distance = pApplet.dist(x, y, pin.x, pin.y);
+            float minDist = diameter / 2 + pin.diameter / 2;
+
+            if (distance < minDist) {
+                // Handle collision with pin (adjust sphere position, bounce, or any other desired behavior)
+                float angle = pApplet.atan2(y - pin.y, x - pin.x);
+                x = pin.x + pApplet.cos(angle) * (diameter / 2 + pin.diameter / 2);
+                y = pin.y + pApplet.sin(angle) * (diameter / 2 + pin.diameter / 2);
+            }
+        }
     }
+
 
     void mergeIfPossible(Sphere other, GamePA pApplet) {
         if (diameter == other.diameter && !other.isMerged && step == other.step) {

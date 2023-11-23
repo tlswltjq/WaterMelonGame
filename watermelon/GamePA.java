@@ -144,7 +144,7 @@ public class GamePA extends PApplet {
             Sphere s = spheres.get(i);
             s.display();
             s.update();
-            s.checkCollision(spheres);
+            s.checkCollision(spheres, pins);
             s.checkBoundary();
             if (s.isMerged) {
                 if (currentPlayer == 1) {
@@ -186,7 +186,7 @@ public class GamePA extends PApplet {
 
     private void createNewSphere(SphereStep nextSize, int outlineColor) {
         Sphere newSphere = new Sphere(this, this, mouseX, wallThickness, nextSize, outlineColor, 2, currentPlayer);
-        newSphere.checkCollision(spheres);
+        newSphere.checkCollision(spheres, pins);
         spheres.add(newSphere);
     }
 
