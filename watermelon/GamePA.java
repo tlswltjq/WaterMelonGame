@@ -2,7 +2,6 @@ package watermelon;
 
 import processing.core.PApplet;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -15,6 +14,7 @@ public class GamePA extends PApplet {
     int currentPlayer = 1; // Player 1 starts
     int player1Score = 0;
     int player2Score = 0;
+    boolean canClick = true;
 
     public void settings() {
         pixelDensity(1);
@@ -47,7 +47,6 @@ public class GamePA extends PApplet {
         }
     }
 
-
     public void mousePressed() {
         if (!gameStarted) {
             startGame();
@@ -74,7 +73,6 @@ public class GamePA extends PApplet {
         // Switch currentPlayer
         currentPlayer = (currentPlayer == 1) ? 2 : 1;
     }
-
 
     private void initializeGame() {
         spheres = new ArrayList<>();
@@ -138,5 +136,9 @@ public class GamePA extends PApplet {
         Sphere newSphere = new Sphere(this, this, mouseX, wallThickness, nextSize, outlineColor, 2, currentPlayer);
         newSphere.checkCollision(spheres);
         spheres.add(newSphere);
+    }
+
+    private void setClickPermission(boolean canClick) {
+        this.canClick = canClick;
     }
 }
