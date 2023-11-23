@@ -132,6 +132,11 @@ public class GamePA extends PApplet {
             s.checkCollision(spheres);
             s.checkBoundary();
             if (s.isMerged) {
+                if(currentPlayer == 1) {
+                    player1Score += s.step * 2;
+                }else{
+                    player2Score += s.step * 2;
+                }
                 spheres.remove(i);
             }
         }
