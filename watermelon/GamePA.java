@@ -6,19 +6,20 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class GamePA extends PApplet {
-    static ArrayList<Sphere> spheres;
+    ArrayList<Sphere> spheres;
+    ArrayList<Pin> pins; // 추가: Pin 객체를 저장할 리스트
     Queue<SphereStep> nextSizes;
     Sphere followingSphere;
     static int wallThickness = 20;
     boolean gameStarted = false;
-    int currentPlayer = 1; // Player 1 starts
+    int currentPlayer = 1;
     int player1Score = 0;
     int player2Score = 0;
     boolean canClick = true;
     int timer = 0;
     float deadline = 660;
+    boolean itemUse = false;
 
-//    Item item = new Item(this);
     public void settings() {
         pixelDensity(1);
         size(600, 750);
@@ -42,12 +43,10 @@ public class GamePA extends PApplet {
             drawBoundaries();
             displayFollowingSphere();
 
-            // Draw the translucent line at the deadline
-            stroke(0, 0, 0, 100); // Black with 40% transparency
+            stroke(0, 0, 0, 100);
             strokeWeight(2);
             line(0, deadline, width, deadline);
 
-            // Display the timer at the top-right corner
             fill(0);
             textSize(20);
             textAlign(LEFT, TOP);
@@ -56,26 +55,31 @@ public class GamePA extends PApplet {
             textAlign(RIGHT, TOP);
             text("Player 2 Score: " + player2Score, width - 20, 20);
 
-            // Draw currentPlayer above the timer
-            fill(0, 0, 0, 178); // Black with 70% transparency
+            fill(0, 0, 0, 178);
             textSize(40);
             textAlign(CENTER, BOTTOM);
             text("Player: " + currentPlayer, width / 2, 100);
 
-            // Draw the timer at the top-right corner
             fill(0);
             textSize(20);
             textAlign(CENTER, TOP);
             text("Timer: " + timer, width / 2, 140);
 
-            // Decrement the timer
             if (timer > 0) {
                 timer--;
                 if (timer == 0) {
-                    canClick = true; // 다시 클릭 가능하도록 설정
+                    canClick = true;
                     switchTurn();
                 }
             }
+        }
+    }
+
+    public void keyPressed() {
+        if (timer == 0 && key == 'q') {
+            itemUse = true;
+            createNewPin(mouseX, mouseY);
+            itemUse = false;
         }
     }
 
@@ -83,10 +87,10 @@ public class GamePA extends PApplet {
         if (!gameStarted) {
             startGame();
         } else if (canClick && timer == 0) {
-            if(hasHitDeadline()){
+            if (hasHitDeadline()) {
                 System.out.println("Game over!");
-                System.out.println("player"+ currentPlayer +" win");
-            }else{
+                System.out.println("player" + currentPlayer + " win");
+            } else {
                 handlePlayerTurn();
             }
         }
@@ -94,7 +98,7 @@ public class GamePA extends PApplet {
 
     private void startGame() {
         gameStarted = true;
-        currentPlayer = 1; // Reset to player 1
+        currentPlayer = 1;
         initializeGame();
     }
 
@@ -102,17 +106,19 @@ public class GamePA extends PApplet {
         SphereStep nextSize = getNextSize();
         updateFollowingSphereSize(nextSize);
 
-        // Determine ownership based on the current player
         int outlineColor = (currentPlayer == 1) ? color(0, 0, 255) : color(0, 255, 0);
 
-        createNewSphere(nextSize, outlineColor);
-        // Prevent user from clicking and start the timer
+        if (!itemUse) {
+            createNewSphere(nextSize, outlineColor);
+        }
+
         canClick = false;
-        timer = 180; // 3 seconds
+        timer = 180;
     }
 
     private void initializeGame() {
         spheres = new ArrayList<>();
+        pins = new ArrayList<>(); // 추가: Pin 객체를 저장할 리스트 초기화
         nextSizes = new LinkedList<>();
 
         for (int i = 0; i < 10; i++) {
@@ -149,6 +155,10 @@ public class GamePA extends PApplet {
                 spheres.remove(i);
             }
         }
+
+        for (Pin pin : pins) { // 추가: Pin 객체 업데이트 및 화면에 표시
+            pin.display();
+        }
     }
 
     private void drawBoundaries() {
@@ -180,13 +190,19 @@ public class GamePA extends PApplet {
         spheres.add(newSphere);
     }
 
+    private void createNewPin(float x, float y) {
+        Pin newPin = new Pin(this, x, y);
+        pins.add(newPin);
+    }
+
     private void switchTurn() {
         currentPlayer = (currentPlayer == 1) ? 2 : 1;
     }
+
     private boolean hasHitDeadline() {
         boolean hit = false;
-        for (Sphere s : spheres){
-            if (s.y - s.diameter/2 <deadline){
+        for (Sphere s : spheres) {
+            if (s.y - s.diameter / 2 < deadline) {
                 hit = true;
                 break;
             }
