@@ -15,7 +15,6 @@ public class GamePA extends PApplet {
     int currentPlayer = 1; // Player 1 starts
     int player1Score = 0;
     int player2Score = 0;
-    int turnTimer = 0;
 
     public void settings() {
         pixelDensity(1);
@@ -44,15 +43,7 @@ public class GamePA extends PApplet {
             fill(0);
             textSize(20);
             textAlign(RIGHT, TOP);
-            text("Turn Timer: " + turnTimer, width - 20, 20);
-
-            // Decrement the turn timer
-            if (turnTimer > 0) {
-                turnTimer--;
-            } else {
-                // Switch turn when the timer reaches 0
-                switchTurn();
-            }
+            text("Current Player: " + currentPlayer, width - 20, 20);
         }
     }
 
@@ -60,7 +51,7 @@ public class GamePA extends PApplet {
     public void mousePressed() {
         if (!gameStarted) {
             startGame();
-        } else if (turnTimer == 0) {
+        } else {
             handlePlayerTurn();
         }
     }
@@ -79,11 +70,11 @@ public class GamePA extends PApplet {
         int outlineColor = (currentPlayer == 1) ? color(0, 0, 255) : color(0, 255, 0);
 
         createNewSphere(nextSize, outlineColor);
-        addNewSizeToQueue();
 
-        // Start the turn timer
-        turnTimer = 300;
+        // Switch currentPlayer
+        currentPlayer = (currentPlayer == 1) ? 2 : 1;
     }
+
 
     private void initializeGame() {
         spheres = new ArrayList<>();
@@ -93,7 +84,7 @@ public class GamePA extends PApplet {
             nextSizes.add(SphereStep.values()[(int) (Math.random() * 3)]);
         }
 
-        followingSphere = new Sphere(this,this,  width / 2f, wallThickness, SphereStep.STEP_1, color(0, 0, 255), 2, currentPlayer);
+        followingSphere = new Sphere(this, this, width / 2f, wallThickness, SphereStep.STEP_1, color(0, 0, 255), 2, currentPlayer);
     }
 
     private void updateFollowingSphere() {
@@ -134,10 +125,6 @@ public class GamePA extends PApplet {
         followingSphere.display();
     }
 
-    private void switchTurn() {
-        currentPlayer = (currentPlayer == 1) ? 2 : 1;
-    }
-
     private SphereStep getNextSize() {
         return nextSizes.isEmpty() ? SphereStep.STEP_1 : nextSizes.poll();
     }
@@ -148,25 +135,8 @@ public class GamePA extends PApplet {
     }
 
     private void createNewSphere(SphereStep nextSize, int outlineColor) {
-        Sphere newSphere = new Sphere(this,this,  mouseX, wallThickness, nextSize, outlineColor, 2, currentPlayer);
+        Sphere newSphere = new Sphere(this, this, mouseX, wallThickness, nextSize, outlineColor, 2, currentPlayer);
         newSphere.checkCollision(spheres);
         spheres.add(newSphere);
-    }
-
-    private void addNewSizeToQueue() {
-        nextSizes.add(SphereStep.values()[(int) (Math.random() * 3)]);
-    }
-
-    private void printQueueContents() {
-        System.out.print("Selected Queue Contents: ");
-        int index = 0;
-        for (Iterator<SphereStep> iterator = nextSizes.iterator(); iterator.hasNext(); ) {
-            SphereStep step = iterator.next();
-            if (index >= 1 && index <= 3) {
-                System.out.print(step + " ");
-            }
-            index++;
-        }
-        System.out.println();
     }
 }

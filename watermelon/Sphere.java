@@ -74,10 +74,9 @@ public class Sphere {
             other.isMerged = true;
 
             // Update ownership of the merged sphere
-            owner = pApplet.currentPlayer;
+            owner = (owner == 1) ? 2 : 1;
 
             System.out.println("Merged Sizes: " + step + " | Owner: " + owner);
-            pApplet.turnTimer = 300;
         } else if (diameter == other.diameter && !other.isMerged && step == other.step && owner == other.owner) {
             // If owner is the same, merge as well
             step = PApplet.max(step, other.step) + 1;
@@ -86,15 +85,12 @@ public class Sphere {
             other.isMerged = true;
 
             System.out.println("Merged Sizes: " + step + " | Owner: " + owner);
-            pApplet.turnTimer = 300;
         } else {
             float angle = pApplet.atan2(y - other.y, x - other.x);
             x = other.x + pApplet.cos(angle) * (diameter / 2 + other.diameter / 2);
             y = other.y + pApplet.sin(angle) * (diameter / 2 + other.diameter / 2);
         }
     }
-
-
 
     void checkBoundary() {
         if (y + diameter / 2 > pApplet.height - GamePA.wallThickness) {
