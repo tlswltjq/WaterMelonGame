@@ -74,7 +74,7 @@ public class Sphere {
             other.isMerged = true;
 
             // Update ownership of the merged sphere
-            owner = (owner == 1) ? 2 : 1;
+            owner = pApplet.currentPlayer;
 
             System.out.println("Merged Sizes: " + step + " | Owner: " + owner);
             pApplet.turnTimer = 300;
@@ -93,6 +93,7 @@ public class Sphere {
             y = other.y + pApplet.sin(angle) * (diameter / 2 + other.diameter / 2);
         }
     }
+
 
 
     void checkBoundary() {
