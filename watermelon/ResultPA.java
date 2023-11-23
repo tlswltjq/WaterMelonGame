@@ -67,12 +67,6 @@ public class ResultPA extends PApplet {
         fill(0);
         textSize(16);
 
-        // 버튼의 그림자 효과
-        if (mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h) {
-            fill(150);
-            rect(x + 5, y + 5, w, h, 10);
-        }
-
         textAlign(CENTER, CENTER);
         text(label, x + w / 2, y + h / 2);
 
@@ -93,5 +87,4 @@ public class ResultPA extends PApplet {
         PApplet.runSketch(new String[]{""}, new MainPA());
         this.surface.setVisible(false);
     }
-
 }
