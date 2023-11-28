@@ -87,6 +87,9 @@ public class Sphere {
             step = PApplet.max(step, other.step) + 1;
             diameter = SphereStep.values()[step - 1].getSize();
 
+            // Update the sphere image after merging
+            sphereImage = pApplet.loadImage("watermelon/src/STEP_" + step + ".png");
+
             other.isMerged = true;
 
             // Update ownership of the merged sphere
@@ -99,6 +102,9 @@ public class Sphere {
             step = PApplet.max(step, other.step) + 1;
             diameter = SphereStep.values()[step - 1].getSize();
 
+            // Update the sphere image after merging
+            sphereImage = pApplet.loadImage("watermelon/src/STEP_" + step + ".png");
+
             other.isMerged = true;
 
             // Reset the timer to 300 when a merge occurs
@@ -109,6 +115,7 @@ public class Sphere {
             y = other.y + pApplet.sin(angle) * (diameter / 2 + other.diameter / 2);
         }
     }
+
 
 
     void checkBoundary() {
