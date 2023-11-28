@@ -1,6 +1,7 @@
 package watermelon;
 
 import processing.core.PApplet;
+import processing.core.PImage;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,7 @@ public class Sphere {
     int outlineColor;  // Outline color
     int outlineThickness;  // Outline thickness
     int owner;  // Player ownership
+    PImage sphereImage;
 
     Sphere(PApplet pApplet, GamePA gamePA, float x, float y, SphereStep step, int outlineColor, int outlineThickness, int currentPlayer) {
         this.pApplet = pApplet;
@@ -25,6 +27,8 @@ public class Sphere {
         this.outlineThickness = outlineThickness;
         this.owner = currentPlayer;
         this.gamePA = gamePA;
+        this.sphereImage = pApplet.loadImage("watermelon/src/" + step + ".png");
+
     }
 
     void display() {
@@ -37,6 +41,7 @@ public class Sphere {
         pApplet.strokeWeight(outlineThickness);
         pApplet.noFill();
         pApplet.ellipse(x, y, diameter, diameter);
+        pApplet.image(sphereImage, x - diameter / 2, y - diameter / 2, diameter, diameter);
 
         // Draw the text
         pApplet.fill(0);
