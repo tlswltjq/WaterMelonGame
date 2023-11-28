@@ -143,16 +143,17 @@ public class GamePA extends PApplet {
         }
 
         followingSphere = new Sphere(this, this, width / 2f, wallThickness, SphereStep.STEP_1, color(0, 0, 255), 2, currentPlayer);
+
     }
 
     private void updateFollowingSphere() {
         followingSphere.x = mouseX;
         followingSphere.y = wallThickness;
-
         if (!nextSizes.isEmpty()) {
             SphereStep firstSize = nextSizes.peek();
             followingSphere.diameter = firstSize.getSize();
             followingSphere.step = firstSize.getStep();
+            followingSphere.sphereImage = this.loadImage("watermelon/src/mark.png");
         }
     }
 
