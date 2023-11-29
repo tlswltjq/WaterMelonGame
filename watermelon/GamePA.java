@@ -17,7 +17,7 @@ public class GamePA extends PApplet {
     int player2Score = 0;
     boolean canClick = true;
     int timer = 0;
-    float deadline = 160;
+    float deadline = 660;
     boolean itemUse = false;
     int callCount1 = 0;
     int callCount2 = 0;
@@ -102,6 +102,7 @@ public class GamePA extends PApplet {
             startGame();
         } else if (canClick && timer == 0) {
             if (hasHitDeadline()) {
+
                 int[] sc = sumScoresByOwner();
                 this.noLoop();
                 this.surface.setVisible(false);
@@ -222,6 +223,11 @@ public class GamePA extends PApplet {
         for (Sphere s : spheres) {
             if (s.y - s.diameter / 2 < deadline) {
                 hit = true;
+                if (currentPlayer ==1){
+                    player2Score-=20;
+                }else{
+                    player1Score-=20;
+                }
                 break;
             }
         }
@@ -239,8 +245,6 @@ public class GamePA extends PApplet {
             }
         }
 
-//        println("Player 1 Total Score: " + player1TotalScore);
-//        println("Player 2 Total Score: " + player2TotalScore);
 
         // 총 점수를 배열에 담아 반환
         int[] totalScores = {player1TotalScore, player2TotalScore};
