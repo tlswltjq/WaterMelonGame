@@ -31,9 +31,6 @@ public class GamePA extends PApplet {
         size(600, 750);
     }
 
-    public void setup() {
-        initializeGame();
-    }
 
     public void draw() {
         background(255);
