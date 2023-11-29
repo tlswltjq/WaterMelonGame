@@ -1,6 +1,8 @@
 package watermelon;
 
 import processing.core.PApplet;
+import processing.core.PImage;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -17,7 +19,7 @@ public class GamePA extends PApplet {
     int player2Score = 0;
     boolean canClick = true;
     int timer = 0;
-    float deadline = 660;
+    float deadline = 160;
     boolean itemUse = false;
     int callCount1 = 0;
     int callCount2 = 0;
@@ -42,6 +44,7 @@ public class GamePA extends PApplet {
             textSize(32);
             text("Click to start the game!", width / 2, height / 2);
         } else {
+            showQueueContents();
             updateFollowingSphere();
             updateAndDisplaySpheres();
             drawBoundaries();
@@ -250,5 +253,23 @@ public class GamePA extends PApplet {
         int[] totalScores = {player1TotalScore, player2TotalScore};
         return totalScores;
     }
+    private void showQueueContents(){
+        float imageX = width / 2f - 50; // 이미지를 화면 중앙 상단에 그릴 위치
+        float imageY = 20;
 
+        // 큐가 비어있지 않을 때만 이미지 그리기
+        if (!nextSizes.isEmpty()) {
+            SphereStep firstSize = nextSizes.peek();
+            image(getSphereStepImage(firstSize), imageX, imageY, 50, 50);
+        }
+
+        if (nextSizes.size() > 1) {
+            SphereStep secondSize = new ArrayList<>(nextSizes).get(1);
+            image(getSphereStepImage(secondSize), imageX + 60, imageY, 50, 50);
+        }
+    }
+    private PImage getSphereStepImage(SphereStep step) {
+        String imagePath = "watermelon/src/" + step.name() + ".png";
+        return loadImage(imagePath);
+    }
 }
