@@ -21,11 +21,4 @@ class Pin {
         pApplet.noStroke();
         pApplet.ellipse(x, y, diameter, diameter);
     }
-
-    public boolean checkCollision(Sphere sphere) {
-        float distance = pApplet.dist(x, y, sphere.x, sphere.y);
-        float minDist = 5 + sphere.diameter / 2;
-
-        return distance < minDist;
-    }
 }
