@@ -6,4 +6,5 @@
 
 
 # Project Structure에서 모듈에 추가.
+<img width="1136" alt="image" src="https://github.com/tlswltjq/WaterMelonGame/assets/41179427/eab17f77-8811-48b3-b27c-14f2ebd634cd">
 <img width="1136" alt="image" src="https://github.com/tlswltjq/WaterMelonGame/assets/41179427/3ea5e63c-0621-4641-aaa9-a1aef60d0bf7">
