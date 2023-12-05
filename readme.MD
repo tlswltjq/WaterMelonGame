@@ -6,5 +6,4 @@
 
 
 # Project Structure에서 모듈에 추가.
-![Uploading Screenshot 2023-12-05 at 5.52.49 PM.png…]()
-<img src="/Uploading Screenshot 2023-12-05 at 5.52.49 PM.png…"  width="700" height="370">
+<img width="1136" alt="image" src="https://github.com/tlswltjq/WaterMelonGame/assets/41179427/3ea5e63c-0621-4641-aaa9-a1aef60d0bf7">
