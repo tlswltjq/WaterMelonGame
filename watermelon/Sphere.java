@@ -108,7 +108,7 @@ public class Sphere {
             other.isMerged = true;
 
             // Reset the timer to 300 when a merge occurs
-            pApplet.timer = 300;
+            pApplet.timer = 150;
         } else {
             float angle = pApplet.atan2(y - other.y, x - other.x);
             x = other.x + pApplet.cos(angle) * (diameter / 2 + other.diameter / 2);

@@ -125,6 +125,7 @@ public class GamePA extends PApplet {
         updateFollowingSphereSize(nextSize);
 
         int outlineColor = (currentPlayer == 1) ? color(0, 0, 255) : color(0, 255, 0);
+        nextSizes.add(SphereStep.values()[(int) (Math.random() * 5)]);
 
         if (!itemUse) {
             createNewSphere(nextSize, outlineColor);
@@ -140,7 +141,7 @@ public class GamePA extends PApplet {
         nextSizes = new LinkedList<>();
 
         for (int i = 0; i < 10; i++) {
-            nextSizes.add(SphereStep.values()[(int) (Math.random() * 3)]);
+            nextSizes.add(SphereStep.values()[(int) (Math.random() * 5)]); //랜덤생성 구체 단계 설정
         }
 
         followingSphere = new Sphere(this, this, width / 2f, wallThickness, SphereStep.STEP_1, color(0, 0, 255), 2, currentPlayer);
@@ -254,7 +255,6 @@ public class GamePA extends PApplet {
         float imageX = width / 2f - 50; // 이미지를 화면 중앙 상단에 그릴 위치
         float imageY = 20;
 
-        // 큐가 비어있지 않을 때만 이미지 그리기
         if (!nextSizes.isEmpty()) {
             SphereStep firstSize = nextSizes.peek();
             image(getSphereStepImage(firstSize), imageX, imageY, 50, 50);
